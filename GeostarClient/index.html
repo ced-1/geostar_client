@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Geostar Project</title>
+	<meta charset="utf-8" />
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="dist/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="Leaflet-0.7.3/dist/leaflet.css" />
+	<style type="text/css">
+    html, body { 
+        height:100%
+    }                                                                                                                                                                                                        
+</style>
+ <script src="dist/js/jquery-latest.js"></script>
+	<script src="dist/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<form id="recherche" onsubmit="return(false)",method="post">
+		<div class="row" style="width: 100%">
+		
+		<div class="col-lg-8">
+		<div class="input-group">
+		<span class="input-group-addon">&Eacute;l&eacute;ments recherch&eacute;s</span>
+			<input type="text" id="searchelt" class="form-control" placeholder="Ex: 97440+Saint-Paul+Bras-Panon">
+		<span class="input-group-addon"><button class="form" type="button" onclick="findelt()"> Search </button></span>
+		</div>
+		</div>
+		<div class= "col-lg-2">
+		 <div class="btn-group">
+			<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+				Language
+				<span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+			<li role="presentation"><a role="menuitem" tabindex="-1" href="#"><img src="img/flagFR.png" alt="FRA">   Fran&ccedil;ais</a></li>
+			<li role="presentation"><a role="menuitem" tabindex="-1" href="#"><img src="img/flagEN.png" alt="ENG">   English</a></li>
+			<li role="presentation"><a role="menuitem" tabindex="-1" href="#"><img src="img/flagDE.png" alt="DEU">   Deutsch</a></li>
+			<li role="presentation"><a role="menuitem" tabindex="-1" href="#"><img src="img/flagIT.png" alt="ITA">   Italiano</a></li>
+			</ul>
+		 </div>
+		</div>
+		<div class= "col-lg-2">
+		 <img src="img/geologo.png" alt="GeoStar"> 
+		</div>
+	</div>	
+	</form>
+
+<div id="map" style="width: 100%; height: 94%" ></div>
+	<script src="Leaflet-0.7.3/dist/leaflet.js"></script>
+	<script src="geostar.js"></script>
+</body>
+</html>
