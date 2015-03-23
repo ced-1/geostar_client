@@ -59,19 +59,51 @@ function findelt(){
 
 function callback(json){
 	markers.clearLayers();										// Suppression marqueur précédemment enregistré
-	setmarkers(json);											// Création des nouveaux marqueurs
+	var listfinal= checkJSON(json);
+	if(listfinal.length!=0){
+	setmarkers(listfinal);											// Création des nouveaux marqueurs
 	markers.addTo(map);											// Mise en place des nouveaux marqueurs sur la map
-	setaffichage(json);											// Formatage de la carte
+	setaffichage(listfinal);}										// Formatage de la carte
 }
 
+//Fonction de verification des elements affichable et non affichable
+
+function checkJSON(list){
+	var JSONlist= new Array();
+	var error="";
+	for (var i=0; i<list.length; i++){
+		if(list[i].err!=0){
+			if(list[i].type ==1 && list[i].err==1){
+				error+="L'ip "+ list[i].elt_id+" n'est pas present dans la BDD\n";
+			}
+			else if(list[i].type ==2 && list[i].err==1){
+				error+="Aucune correspondance geocoding trouvé pour "+ list[i].elt_id+"\n";
+			}
+			else if(list[i].type ==2 && list[i].err==2){
+				error+="Geocoder non disponible ou surchargée durant la requête sur " + list[i].elt_id+"\n";
+			}
+		}
+		else{
+				JSONlist.push(list[i]);
+		}
+		}
+		if(error!=""){
+		alert(error);}
+		return JSONlist;
+}		
 //Fonction de creation et stockage des marqueurs
 
 function setmarkers(list){
 var marker;
 	markers= new L.layerGroup();
 
-for (var i=0; i<list.length; i++){		
-	marker=L.marker([parseFloat(list[i].lat),parseFloat(list[i].lon)]).bindPopup("<b>Element "+(i+1)+"</br>"+list[i].elt_id +"</b></br>Population:"+list[i].pop);
+for (var i=0; i<list.length; i++){
+	if(list[i].type==2){
+		marker=L.marker([parseFloat(list[i].lat),parseFloat(list[i].lon)]).bindPopup("<b>"+list[i].elt_id+"</b></br>Real name:"+list[i].elt_name +"</br>Population:"+list[i].pop);
+		}
+	else{
+		marker=L.marker([parseFloat(list[i].lat),parseFloat(list[i].lon)]).bindPopup("<b>"+list[i].elt_id+"</b>");
+		}
 	markers.addLayer(marker);
 	}
 };
