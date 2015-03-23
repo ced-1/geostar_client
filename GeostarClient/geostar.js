@@ -3,7 +3,7 @@ var markcenter;
 var regexchar=/[!@#$%^&*()\/|<>"]|\\/;								// expression caractere speciaux
 var map = L.map('map').setView([-20.98, 55.50], 5);
 var geolocate = document.getElementById('geolocate');
-		L.tileLayer(window.location.protocol + "//" + window.location.hostname+'/osm_tiles/{z}/{x}/{y}.png', {
+		L.tileLayer(window.location.protocol +'//' + window.location.hostname+'/osm_tiles/{z}/{x}/{y}.png', {
 		maxZoom: 18,
 		attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
 			'<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
@@ -45,11 +45,12 @@ function findelt(){
 		}
 	var res = $.ajax({	// Requête GET contenant le tableau d'objet JSON envoyé au serveur
 		type: 'POST',
-		crossDomain: true,
-		url: window.location.protocol +'//' + window.location.hostname + ':8081/',
+		//crossDomain: true,
+		url: window.location.protocol +'//' + window.location.hostname + ':8080/',
 		data: {elt:JSONlist},
 		dataType: 'json',
 		success: function (data, textStatus, jqXHR) {		//En cas d'aboutissement de la requête on effectue les traitements suivant
+			console.log(data);
 			callback(data);
 			}
 		});
@@ -69,8 +70,8 @@ function setmarkers(list){
 var marker;
 	markers= new L.layerGroup();
 
-for (var i=0; i<list.length; i++){
-	marker=L.marker([parseFloat(list[i].lat),parseFloat(list[i].lon)]).bindPopup("<b>Element "+(i+1)+"</br>"+list[i].elt_id +"</b>");
+for (var i=0; i<list.length; i++){		
+	marker=L.marker([parseFloat(list[i].lat),parseFloat(list[i].lon)]).bindPopup("<b>Element "+(i+1)+"</br>"+list[i].elt_id +"</b></br>Population:"+list[i].pop);
 	markers.addLayer(marker);
 	}
 };
