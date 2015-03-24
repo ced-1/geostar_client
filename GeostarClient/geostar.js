@@ -59,13 +59,6 @@ function findelt(){
 
 function callback(json){
 	markers.clearLayers();										// Suppression marqueur précédemment enregistré
-<<<<<<< HEAD
-	setmarkers(json);											// Création des nouveaux marqueurs
-	markers.addTo(map);											// Mise en place des nouveaux marqueurs sur la map
-	setaffichage(json);											// Formatage de la carte
-}
-
-=======
 	var listfinal= checkJSON(json);
 	if(listfinal.length!=0){
 	setmarkers(listfinal);											// Création des nouveaux marqueurs
@@ -98,17 +91,12 @@ function checkJSON(list){
 		alert(error);}
 		return JSONlist;
 }		
->>>>>>> 1280b0eb99f1cbfb55473f5b25330d13d3168c3c
 //Fonction de creation et stockage des marqueurs
 
 function setmarkers(list){
 var marker;
 	markers= new L.layerGroup();
 
-<<<<<<< HEAD
-for (var i=0; i<list.length; i++){		
-	marker=L.marker([parseFloat(list[i].lat),parseFloat(list[i].lon)]).bindPopup("<b>Element "+(i+1)+"</br>"+list[i].elt_id +"</b></br>Population:"+list[i].pop);
-=======
 for (var i=0; i<list.length; i++){
 	if(list[i].type==2){
 		marker=L.marker([parseFloat(list[i].lat),parseFloat(list[i].lon)]).bindPopup("<b>"+list[i].elt_id+"</b></br>Real name:"+list[i].elt_name +"</br>Population:"+list[i].pop);
@@ -116,7 +104,6 @@ for (var i=0; i<list.length; i++){
 	else{
 		marker=L.marker([parseFloat(list[i].lat),parseFloat(list[i].lon)]).bindPopup("<b>"+list[i].elt_id+"</b>");
 		}
->>>>>>> 1280b0eb99f1cbfb55473f5b25330d13d3168c3c
 	markers.addLayer(marker);
 	}
 };
