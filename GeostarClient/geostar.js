@@ -1,4 +1,5 @@
 var markers= new L.layerGroup();
+var polygons= new L.layerGroup();
 var markcenter;
 var regexchar=/[!@#$%^&*()\/|<>"]|\\/;								// expression caractere speciaux
 var map = L.map('map').setView([-20.98, 55.50], 5);
@@ -59,11 +60,15 @@ function findelt(){
 
 function callback(json){
 	markers.clearLayers();										// Suppression marqueur précédemment enregistré
+	polygons.clearLayers();
 	var listfinal= checkJSON(json);
 	if(listfinal.length!=0){
+	setaffichage(listfinal);
 	setmarkers(listfinal);											// Création des nouveaux marqueurs
+	polygons.addTo(map);
 	markers.addTo(map);											// Mise en place des nouveaux marqueurs sur la map
-	setaffichage(listfinal);}										// Formatage de la carte
+	
+	}										// Formatage de la carte
 }
 
 //Fonction de verification des elements affichable et non affichable
@@ -96,10 +101,25 @@ function checkJSON(list){
 function setmarkers(list){
 var marker;
 	markers= new L.layerGroup();
-
+	polygons= new L.layerGroup();
 for (var i=0; i<list.length; i++){
 	if(list[i].type==2){
-		marker=L.marker([parseFloat(list[i].lat),parseFloat(list[i].lon)]).bindPopup("<b>"+list[i].elt_id+"</b></br>Real name:"+list[i].elt_name +"</br>Population:"+list[i].pop);
+		if(list[i].polygon){
+			console.log(list[i].polygon);
+			marker=L.polygon(list[i].polygon);
+			polygons.addLayer(marker);
+		}
+		if(list[i].pop){
+			console.log("ici");
+			marker= L.circle([parseFloat(list[i].lat), parseFloat(list[i].lon)], list[i].pop/100, {
+				color: 'red',
+				fillColor: '#f03',
+				fillOpacity: 0.7
+			}).bindPopup("<b>"+list[i].elt_id+"</b></br>Real name:"+list[i].elt_name +"</br>Population:"+list[i].pop);
+			}
+		else{
+			marker=L.marker([parseFloat(list[i].lat),parseFloat(list[i].lon)]).bindPopup("<b>"+list[i].elt_id+"</b></br>Real name:"+list[i].elt_name +"</br>Population:"+list[i].pop);
+			}
 		}
 	else{
 		marker=L.marker([parseFloat(list[i].lat),parseFloat(list[i].lon)]).bindPopup("<b>"+list[i].elt_id+"</b>");
@@ -114,8 +134,16 @@ function setaffichage(list){
 var latlist= new Array;
 var lonlist= new Array;
 	for (var i=0; i<list.length; i++){
-		latlist.push(parseFloat(list[i].lat))
-		lonlist.push(parseFloat(list[i].lon))
+		if(list[i].bounds){
+			latlist.push(parseFloat(list[i].bounds.ne.lat));
+			latlist.push(parseFloat(list[i].bounds.sw.lat));
+			lonlist.push(parseFloat(list[i].bounds.ne.lng));
+			lonlist.push(parseFloat(list[i].bounds.sw.lng));
+		}
+		else{
+			latlist.push(parseFloat(list[i].lat))
+			lonlist.push(parseFloat(list[i].lon))
+		}
 	}	
 	var southWest = L.latLng(getMaxOfArray(latlist), getMaxOfArray(lonlist)),		// La coordonnée la plus au Sud-Ouest
     northEast = L.latLng(getMinOfArray(latlist), getMinOfArray(lonlist)),			// La coordonnée la plus au Nord-Est
