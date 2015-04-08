@@ -100,31 +100,55 @@ function checkJSON(list){
 
 function setmarkers(list){
 var marker;
+var mpolygon;
 	markers= new L.layerGroup();
 	polygons= new L.layerGroup();
 for (var i=0; i<list.length; i++){
-	if(list[i].type==2){
-		if(list[i].polygon){
-			console.log(list[i].polygon);
-			marker=L.polygon(list[i].polygon);
-			polygons.addLayer(marker);
+	var element;
+	var value=null;
+	if((list[i].elt_id).indexOf(":")>-1){
+		element = list[i].elt_id.split(":")[0];
+		value = list[i].elt_id.split(":")[1];
+
 		}
-		if(list[i].pop){
-			console.log("ici");
-			marker= L.circle([parseFloat(list[i].lat), parseFloat(list[i].lon)], list[i].pop/100, {
+	else{
+		element = list[i].elt_id;
+	}
+	if(value){
+	marker= L.circle([parseFloat(list[i].lat), parseFloat(list[i].lon)], parseInt(value), {
 				color: 'red',
 				fillColor: '#f03',
 				fillOpacity: 0.7
-			}).bindPopup("<b>"+list[i].elt_id+"</b></br>Real name:"+list[i].elt_name +"</br>Population:"+list[i].pop);
+			});
+	}
+	else{
+		marker=L.marker([parseFloat(list[i].lat),parseFloat(list[i].lon)]);
+	}
+	if(list[i].type==2){
+
+		if(list[i].polygon){
+			console.log(list[i].polygon);
+			mpolygon=L.polygon(list[i].polygon);
+			polygons.addLayer(mpolygon);
+		}
+	
+
+
+		if(list[i].pop){
+			console.log("ici");
+			marker.bindPopup("<b>"+element+"</b></br>Real name:"+list[i].elt_name +"</br>Population:"+list[i].pop);
 			}
 		else{
-			marker=L.marker([parseFloat(list[i].lat),parseFloat(list[i].lon)]).bindPopup("<b>"+list[i].elt_id+"</b></br>Real name:"+list[i].elt_name +"</br>Population:"+list[i].pop);
+			marker.bindPopup("<b>"+element+"</b></br>Real name:"+list[i].elt_name +"</br>Population:"+list[i].pop);
 			}
-		}
+	}
+	
 	else{
-		marker=L.marker([parseFloat(list[i].lat),parseFloat(list[i].lon)]).bindPopup("<b>"+list[i].elt_id+"</b>");
+		marker.bindPopup("<b>"+element+"</b>");
 		}
 	markers.addLayer(marker);
+		console.log(value);
+
 	}
 };
 
