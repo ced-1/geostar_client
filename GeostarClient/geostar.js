@@ -1,6 +1,7 @@
 var markers= new L.layerGroup();
 var polygons= new L.layerGroup();
 var markcenter;
+var regexspace=/^ *$/;
 var regexchar=/[!@#$%^&*()\/|<>"]|\\/;								// expression caractere speciaux
 var map = L.map('map').setView([-20.98, 55.50], 5);
 var geolocate = document.getElementById('geolocate');
@@ -26,7 +27,7 @@ function findelt(){
 	var elt= document.getElementById("searchelt").value;		//Récupère la saisie de l'utilisateur dans le champs prévu
 	var splitelt = new Array;
 	var JSONlist = new Array;
-	if(elt==null || elt==""){									//Vérifie la présence d'une saisie
+	if(elt==null || regexspace.test(elt)){									//Vérifie la présence d'une saisie
 		alert("Vous n'avez pas effectué de saisie");
 	}
 	else if(regexchar.test(elt)){								//Vérifie la validité de la saisie
@@ -42,7 +43,9 @@ function findelt(){
 		splitelt[0]=elt;
 		}
 	for (var i=0;i<splitelt.length;i++){		// Pour chaque éléments
-		JSONlist.push( {elt_id: splitelt[i]});	// On formate l'élément en objet JSON et on le place dans un tableau d'objet JSON
+		if (!(regexspace.test(splitelt[i]))){				// Verification que l'element peut être valide à la requete
+			JSONlist.push( {elt_id: splitelt[i]});	// On formate l'élément en objet JSON et on le place dans un tableau d'objet JSON
+			}
 		}
 	var res = $.ajax({	// Requête GET contenant le tableau d'objet JSON envoyé au serveur
 		type: 'POST',
