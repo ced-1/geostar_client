@@ -28,17 +28,22 @@
 		</div>
 		<div class= "col-lg-2">
 		 <div class="btn-group">
-			<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-				Language
-				<span class="caret"></span>
-			</button>
-			<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-			<li role="presentation"><a role="menuitem" tabindex="-1" href="#"><img src="img/flagFR.png" alt="FRA">   Fran&ccedil;ais</a></li>
-			<li role="presentation"><a role="menuitem" tabindex="-1" href="#"><img src="img/flagEN.png" alt="ENG">   English</a></li>
-			<li role="presentation"><a role="menuitem" tabindex="-1" href="#"><img src="img/flagDE.png" alt="DEU">   Deutsch</a></li>
-			<li role="presentation"><a role="menuitem" tabindex="-1" href="#"><img src="img/flagIT.png" alt="ITA">   Italiano</a></li>
-			</ul>
-		 </div>
+              <button data-toggle="dropdown" class="btn btn-default dropdown-toggle"> Search Properties<span class="caret"></span></button>
+              <ul class="dropdown-menu noclose">
+                <li>
+                  <input id="0" name="adm" value="adm" type="checkbox">
+                  <label for="0">Chef-lieu</label>
+                </li>
+                <li>
+                  <input id="1" name="city" value="city" type="checkbox">
+                  <label for="1">Ville</label>
+                </li>
+                <li>
+                  <input id="2" name="country" value="country" type="checkbox">
+                  <label for="2">Pays</label>
+                </li>
+              </ul>
+            </div>
 		</div>
 		<div class= "col-lg-2">
 		 <img src="img/geologo.png" alt="GeoStar"> 

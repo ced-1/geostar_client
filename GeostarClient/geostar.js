@@ -12,21 +12,26 @@ var geolocate = document.getElementById('geolocate');
 			
 }).addTo(map);
 
-
-
-
-$('#recherche').keypress(function(e){
+$('#searchelt').keypress(function(e){
     if( e.which == 13 ){
+	e.preventDefault();
 	findelt()
     }
 });
 
+
 //Fonction d'envoie de requête et de traitement du résultat
 	
 function findelt(){
+	var placetype = new Array;
 	var elt= document.getElementById("searchelt").value;		//Récupère la saisie de l'utilisateur dans le champs prévu
 	var splitelt = new Array;
 	var JSONlist = new Array;
+	for (var i=0;i<3;i++){
+		if(document.getElementById(i).checked){
+			placetype.push(document.getElementById(i).value);
+			}
+		}
 	if(elt==null || regexspace.test(elt)){									//Vérifie la présence d'une saisie
 		alert("Vous n'avez pas effectué de saisie");
 	}
@@ -37,7 +42,6 @@ function findelt(){
 		var regexseparator=/[+]/;
 		if	(regexseparator.test(elt)){
 			splitelt= elt.split("+");		
-			
 		}
 		else{
 		splitelt[0]=elt;
@@ -49,9 +53,8 @@ function findelt(){
 		}
 	var res = $.ajax({	// Requête GET contenant le tableau d'objet JSON envoyé au serveur
 		type: 'POST',
-		//crossDomain: true,
 		url: window.location.protocol +'//' + window.location.hostname + ':8080/',
-		data: {elt:JSONlist},
+		data: {'elt':JSONlist, 'placetype':placetype},
 		dataType: 'json',
 		success: function (data, textStatus, jqXHR) {		//En cas d'aboutissement de la requête on effectue les traitements suivant
 			console.log(data);
