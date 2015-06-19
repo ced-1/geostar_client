@@ -1,4 +1,4 @@
-var markers= new L.layerGroup();
+ï»¿var markers= new L.layerGroup();
 var polygons= new L.layerGroup();
 var markcenter;
 var regexspace=/^ *$/;
@@ -20,25 +20,46 @@ $('#searchelt').keypress(function(e){
 });
 
 
-//Fonction d'envoie de requête et de traitement du résultat
+
+var placetype = new Array;
+
+$( '.dropdown-menu a' ).on( 'click', function( event ) {
+
+   var $target = $( event.currentTarget ),
+       val = $target.attr( 'data-value' ),
+       $inp = $target.find( 'input' ),
+       idx;
+
+   if ( ( idx = placetype.indexOf( val ) ) > -1 ) {
+      placetype.splice( idx, 1 );
+      setTimeout( function() { $inp.prop( 'checked', false ) }, 0);
+   } else {
+      placetype.push( val );
+      setTimeout( function() { $inp.prop( 'checked', true ) }, 0);
+   }
+
+   $( event.target ).blur();
+      
+   console.log( placetype );
+   return false;
+});
+
+
+
+//Fonction d'envoie de requÃªte et de traitement du rÃ©sultat
 	
 function findelt(){
-	var placetype = new Array;
-	var elt= document.getElementById("searchelt").value;		//Récupère la saisie de l'utilisateur dans le champs prévu
+	var elt= document.getElementById("searchelt").value;		//RÃ©cupÃ¨re la saisie de l'utilisateur dans le champs prÃ©vu
 	var splitelt = new Array;
-	var JSONlist = new Array;
-	for (var i=0;i<3;i++){
-		if(document.getElementById(i).checked){
-			placetype.push(document.getElementById(i).value);
-			}
-		}
-	if(elt==null || regexspace.test(elt)){									//Vérifie la présence d'une saisie
-		alert("Vous n'avez pas effectué de saisie");
+	var eltlist = new Array;
+
+	if(elt==null || regexspace.test(elt)){									//VÃ©rifie la prÃ©sence d'une saisie
+		alert("Vous n'avez pas effectuÃ© de saisie");
 	}
-	else if(regexchar.test(elt)){								//Vérifie la validité de la saisie
-		alert("Caractères spéciaux détectés");	
+	else if(regexchar.test(elt)){								//VÃ©rifie la validitÃ© de la saisie
+		alert("CaractÃ¨res spÃ©ciaux dÃ©tectÃ©s");	
 	}
-	else {														//Découpage des différents éléments saisie, sous forme d'un tableau.
+	else {														//DÃ©coupage des diffÃ©rents Ã©lÃ©ments saisie, sous forme d'un tableau.
 		var regexseparator=/[+]/;
 		if	(regexseparator.test(elt)){
 			splitelt= elt.split("+");		
@@ -46,17 +67,17 @@ function findelt(){
 		else{
 		splitelt[0]=elt;
 		}
-	for (var i=0;i<splitelt.length;i++){		// Pour chaque éléments
-		if (!(regexspace.test(splitelt[i]))){				// Verification que l'element peut être valide à la requete
-			JSONlist.push( {elt_id: splitelt[i]});	// On formate l'élément en objet JSON et on le place dans un tableau d'objet JSON
+	for (var i=0;i<splitelt.length;i++){		// Pour chaque Ã©lÃ©ments
+		if (!(regexspace.test(splitelt[i]))){				// Verification que l'element peut Ãªtre valide Ã  la requete
+			eltlist.push(splitelt[i]);	// On place tout les Ã©lÃ©ments dans une liste
 			}
 		}
-	var res = $.ajax({	// Requête GET contenant le tableau d'objet JSON envoyé au serveur
+	var res = $.ajax({	// RequÃªte POST contenant un JSON contenant la liste d'element et la liste des type envoyÃ© au serveur
 		type: 'POST',
 		url: window.location.protocol +'//' + window.location.hostname + ':8080/',
-		data: {'elt':JSONlist, 'placetype':placetype},
+		data: {'elt':eltlist, 'placetype':placetype},
 		dataType: 'json',
-		success: function (data, textStatus, jqXHR) {		//En cas d'aboutissement de la requête on effectue les traitements suivant
+		success: function (data, textStatus, jqXHR) {		//En cas d'aboutissement de la requÃªte on effectue les traitements suivant
 			console.log(data);
 			callback(data);
 			}
@@ -65,12 +86,12 @@ function findelt(){
 };
 
 function callback(json){
-	markers.clearLayers();										// Suppression marqueur précédemment enregistré
+	markers.clearLayers();										// Suppression marqueur prÃ©cÃ©demment enregistrÃ©
 	polygons.clearLayers();
 	var listfinal= checkJSON(json);
 	if(listfinal.length!=0){
 	setaffichage(listfinal);
-	setmarkers(listfinal);											// Création des nouveaux marqueurs
+	setmarkers(listfinal);											// CrÃ©ation des nouveaux marqueurs
 	polygons.addTo(map);
 	markers.addTo(map);											// Mise en place des nouveaux marqueurs sur la map
 	
@@ -88,10 +109,10 @@ function checkJSON(list){
 				error+="L'ip "+ list[i].elt_id+" n'est pas present dans la BDD\n";
 			}
 			else if(list[i].type ==2 && list[i].err==1){
-				error+="Aucune correspondance geocoding trouvé pour "+ list[i].elt_id+"\n";
+				error+="Aucune correspondance geocoding trouvÃ© pour "+ list[i].elt_id+"\n";
 			}
 			else if(list[i].type ==2 && list[i].err==2){
-				error+="Geocoder non disponible ou surchargée durant la requête sur " + list[i].elt_id+"\n";
+				error+="Geocoder non disponible ou surchargÃ©e durant la requÃªte sur " + list[i].elt_id+"\n";
 			}
 		}
 		else{
@@ -175,20 +196,20 @@ var lonlist= new Array;
 			lonlist.push(parseFloat(list[i].lon))
 		}
 	}	
-	var southWest = L.latLng(getMaxOfArray(latlist), getMaxOfArray(lonlist)),		// La coordonnée la plus au Sud-Ouest
-    northEast = L.latLng(getMinOfArray(latlist), getMinOfArray(lonlist)),			// La coordonnée la plus au Nord-Est
-    bounds =L.latLngBounds(southWest, northEast),									// Définition du rectangle contenant toutes les coordonnées
+	var southWest = L.latLng(getMaxOfArray(latlist), getMaxOfArray(lonlist)),		// La coordonnÃ©e la plus au Sud-Ouest
+    northEast = L.latLng(getMinOfArray(latlist), getMinOfArray(lonlist)),			// La coordonnÃ©e la plus au Nord-Est
+    bounds =L.latLngBounds(southWest, northEast),									// DÃ©finition du rectangle contenant toutes les coordonnÃ©es
 	formatmap=L.extend(bounds);
 	map.fitBounds(formatmap); 														//Formatage de la carte
 };
 
-//Fonction permettant de récuperer la valeur maximal d'un tableau
+//Fonction permettant de rÃ©cuperer la valeur maximal d'un tableau
 
 function getMaxOfArray(numArray) {
     return Math.max.apply(null, numArray);
 };
 
-//Fonction permettant de récuperer la valeur minimal d'un tableau
+//Fonction permettant de rÃ©cuperer la valeur minimal d'un tableau
 
 
 function getMinOfArray(numArray) {

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
 	<title>Geostar Project</title>
@@ -10,46 +10,172 @@
 	<style type="text/css">
     html, body { 
         height:100%
-    }                                                                                                                                                                                                        
+    }
+	@media(max-width:400px) {
+		.foo {display: none}
+		}
+	.scrollable-menu {
+    height: auto;
+    max-height: 200px;
+    overflow-x: hidden
+}
+	
 </style>
  <script src="dist/js/jquery-latest.js"></script>
 	<script src="dist/js/bootstrap.min.js"></script>
+		<script>
+	$(document).ready(function(){
+    $("#un").click(function(){
+        $("#searchelt").val("Saint-Denis");
+    });
+	    $("#deux").click(function(){
+        $("#searchelt").val("-21.00;55.50");
+    });
+	    $("#trois").click(function(){
+        $("#searchelt").val("80.8.115.80");
+    });
+});	
+	</script>
+	
 </head>
 <body>
-	<form id="recherche" onsubmit="return(false)" method="post">
+	<div class="container">
+
+	<form id="recherche" onsubmit="return(false)",method="post">
 		<div class="row" style="width: 100%">
 		
-		<div class="col-lg-8">
+		<div class="col-lg-11">
 		<div class="input-group">
-		<span class="input-group-addon">&Eacute;l&eacute;ments recherch&eacute;s (ville,code postal,IP,GPS)</span>
+		<span class="input-group-addon foo" style= "padding:0px"> <img src="img/geologo2.png" alt="GeoStar" style= "height:31px"> </span>
 			<input type="text" id="searchelt" class="form-control" placeholder="Ex: 97440 + Le Port Reunion + -20.90,55.60 + 80.8.171.76">
 		<span class="input-group-addon"><button class="form" type="button" onclick="findelt()"> Search </button></span>
+		<span class="input-group-addon foo" style= "padding:0px">
+
+			
+
+     <div class="btn-group foo">
+        <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">Search Properties <span class="caret"></span></button>
+		<ul class="dropdown-menu scrollable-menu">
+			<li><a href="#" class="small" data-value="adm" tabIndex="-1"><input type="checkbox"/> Chef lieu</a></li>
+			<li><a href="#" class="small" data-value="airport" tabIndex="-1"><input type="checkbox"/> Aeroport</a></li>
+			<!-- <li><a href="#" class="small" data-value="amusepark" tabIndex="-1"><input type="checkbox"/> test</a></li>-->
+			<!-- <li><a href="#" class="small" data-value="aqueduc" tabIndex="-1"><input type="checkbox"/> test</a></li> -->
+			<!-- <li><a href="#" class="small" data-value="atm" tabIndex="-1"><input type="checkbox"/>test</a></li> -->
+			<!-- <li><a href="#" class="small" data-value="bank" tabIndex="-1"><input type="checkbox"/> Banque</a></li> -->
+			<!-- <li><a href="#" class="small" data-value="bar" tabIndex="-1"><input type="checkbox"/>test</a></li>--><li><a href="#" class="small" data-value="bay" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="beach" tabIndex="-1"><input type="checkbox"/> Plage</a></li>
+			<li><a href="#" class="small" data-value="bridge" tabIndex="-1"><input type="checkbox"/> Pont</a></li>
+			<li><a href="#" class="small" data-value="building" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="busstation" tabIndex="-1"><input type="checkbox"/> Gare de bus</a></li>
+			<li><a href="#" class="small" data-value="camp" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="canyon" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="casino" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="castle" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="cemetery" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="cirque" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="city" tabIndex="-1"><input type="checkbox"/>Ville</a></li>
+			<li><a href="#" class="small" data-value="citysubdivision" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="cliff" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="coast" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="continent" tabIndex="-1"><input type="checkbox"/>Continent</a></li>
+			<li><a href="#" class="small" data-value="country" tabIndex="-1"><input type="checkbox"/>Pays</a></li>
+			<!--<li><a href="#" class="small" data-value="courthouse" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="customspost" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="dam" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="desert" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="factory" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="falls" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="farm" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="field" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="fishingarea" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="fjord" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="forest" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="garden" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="gisfeature" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="golf" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="gorge" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="grassland" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="gulf" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="hill" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="hospital" tabIndex="-1"><input type="checkbox"/>Hopital</a></li>
+			<li><a href="#" class="small" data-value="hotel" tabIndex="-1"><input type="checkbox"/>Hotel</a></li>
+			<li><a href="#" class="small" data-value="house" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="ice" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="island" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="lake" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="library" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="lighthouse" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="mall" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="marsh" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="metrostation" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="military" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="mill" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="mine" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="mole" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="monument" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="mound" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="mountain" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="museum" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="oasis" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="observatorypoint" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="ocean" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="operahouse" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="park" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="parking" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="plantation" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="policepost" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="politicalentity" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="pond" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="port" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="postoffice" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="prison" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="pyramid" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="quay" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="rail" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="railroadstation" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="ranch" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="ravin" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="reef" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="religious" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="reserve" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="restaurant" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="road" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="school" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="sea" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="spring" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="stadium" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="strait" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="stream" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="street" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="theater" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="tower" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="tree" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="tunnel" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="undersea" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="vineyard" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="volcano" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="waterbody" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			<li><a href="#" class="small" data-value="zoo" tabIndex="-1"><input type="checkbox"/>test</a></li>
+			--></ul>
+		</div>
+		
+		<div class="btn-group foo">
+			<button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">Search Example <span class="caret"></span></button>
+				<ul class="dropdown-menu">
+				<li><button id="un">Ville mondiale</button></li>
+				<li><button id="deux">Coordonnée</button></li>
+				<li><button id="trois"> Adresse IP</button></li>
+				</ul>
+		</div>	
+			
+		</span>
 		</div>
 		</div>
-		<div class= "col-lg-2">
-		 <div class="btn-group">
-              <button data-toggle="dropdown" class="btn btn-default dropdown-toggle"> Search Properties<span class="caret"></span></button>
-              <ul class="dropdown-menu noclose">
-                <li>
-                  <input id="0" name="adm" value="adm" type="checkbox">
-                  <label for="0">Chef-lieu</label>
-                </li>
-                <li>
-                  <input id="1" name="city" value="city" type="checkbox">
-                  <label for="1">Ville</label>
-                </li>
-                <li>
-                  <input id="2" name="country" value="country" type="checkbox">
-                  <label for="2">Pays</label>
-                </li>
-              </ul>
-            </div>
-		</div>
-		<div class= "col-lg-2">
-		 <img src="img/geologo.png" alt="GeoStar"> 
-		</div>
-	</div>	
-	</form>
+		
+		
+	</div>
+</form>
+</div>
 
 <div id="map" style="width: 100%; height: 94%" ></div>
 	<script src="Leaflet-0.7.3/dist/leaflet.js"></script>
