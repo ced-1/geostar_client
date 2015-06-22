@@ -34,6 +34,9 @@
 	    $("#trois").click(function(){
         $("#searchelt").val("80.8.115.80");
     });
+	$("#quatre").click(function(){
+        $("#searchelt").val("Saint-Denis Réunion + -21.00;55.50 + 80.8.115.80 + 97440 Réunion");
+    });
 });	
 	</script>
 	
@@ -57,13 +60,15 @@
         <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">Search Properties <span class="caret"></span></button>
 		<ul class="dropdown-menu scrollable-menu">
 			<li><a href="#" class="small" data-value="adm" tabIndex="-1"><input type="checkbox"/> Chef lieu</a></li>
+			<li><a href="#" class="small" data-value="city" tabIndex="-1"><input type="checkbox"/>Ville</a></li>
+			<li><a href="#" class="small" data-value="country" tabIndex="-1"><input type="checkbox"/>Pays</a></li>
 			<li><a href="#" class="small" data-value="airport" tabIndex="-1"><input type="checkbox"/> Aeroport</a></li>
 			<!-- <li><a href="#" class="small" data-value="amusepark" tabIndex="-1"><input type="checkbox"/> test</a></li>-->
 			<!-- <li><a href="#" class="small" data-value="aqueduc" tabIndex="-1"><input type="checkbox"/> test</a></li> -->
 			<!-- <li><a href="#" class="small" data-value="atm" tabIndex="-1"><input type="checkbox"/>test</a></li> -->
 			<!-- <li><a href="#" class="small" data-value="bank" tabIndex="-1"><input type="checkbox"/> Banque</a></li> -->
 			<!-- <li><a href="#" class="small" data-value="bar" tabIndex="-1"><input type="checkbox"/>test</a></li>--><li><a href="#" class="small" data-value="bay" tabIndex="-1"><input type="checkbox"/>test</a></li>
-			<li><a href="#" class="small" data-value="beach" tabIndex="-1"><input type="checkbox"/> Plage</a></li>
+			<!--<li><a href="#" class="small" data-value="beach" tabIndex="-1"><input type="checkbox"/> Plage</a></li>
 			<li><a href="#" class="small" data-value="bridge" tabIndex="-1"><input type="checkbox"/> Pont</a></li>
 			<li><a href="#" class="small" data-value="building" tabIndex="-1"><input type="checkbox"/>test</a></li>
 			<li><a href="#" class="small" data-value="busstation" tabIndex="-1"><input type="checkbox"/> Gare de bus</a></li>
@@ -73,12 +78,10 @@
 			<li><a href="#" class="small" data-value="castle" tabIndex="-1"><input type="checkbox"/>test</a></li>
 			<li><a href="#" class="small" data-value="cemetery" tabIndex="-1"><input type="checkbox"/>test</a></li>
 			<li><a href="#" class="small" data-value="cirque" tabIndex="-1"><input type="checkbox"/>test</a></li>
-			<li><a href="#" class="small" data-value="city" tabIndex="-1"><input type="checkbox"/>Ville</a></li>
 			<li><a href="#" class="small" data-value="citysubdivision" tabIndex="-1"><input type="checkbox"/>test</a></li>
 			<li><a href="#" class="small" data-value="cliff" tabIndex="-1"><input type="checkbox"/>test</a></li>
 			<li><a href="#" class="small" data-value="coast" tabIndex="-1"><input type="checkbox"/>test</a></li>
 			<li><a href="#" class="small" data-value="continent" tabIndex="-1"><input type="checkbox"/>Continent</a></li>
-			<li><a href="#" class="small" data-value="country" tabIndex="-1"><input type="checkbox"/>Pays</a></li>
 			<!--<li><a href="#" class="small" data-value="courthouse" tabIndex="-1"><input type="checkbox"/>test</a></li>
 			<li><a href="#" class="small" data-value="customspost" tabIndex="-1"><input type="checkbox"/>test</a></li>
 			<li><a href="#" class="small" data-value="dam" tabIndex="-1"><input type="checkbox"/>test</a></li>
@@ -165,6 +168,7 @@
 				<li><button id="un">Ville mondiale</button></li>
 				<li><button id="deux">Coordonnée</button></li>
 				<li><button id="trois"> Adresse IP</button></li>
+				<li><button id="quatre"> Recherche multiple</button></li>
 				</ul>
 		</div>	
 			
